@@ -1,100 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AQ Digital - Master Portal</title>
+    <title>AQ Digital - Enterprise Client & Admin Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; }
-        .glass { background: rgba(19, 25, 39, 0.7); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.06); }
-        .input-dark { background: rgba(13, 18, 32, 0.9); border: 1px solid rgba(255,255,255,0.1); color: white; }
-        .admin-tab { border-bottom: 2px solid transparent; transition: 0.3s; }
-        .admin-tab.active { border-color: #0ea5e9; color: #0ea5e9; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        /* Modern Glass & Card Animations */
+        .pro-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 40px -15px rgba(14, 165, 233, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pro-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.15);
+            border-color: #38bdf8;
+        }
+
+        .animated-gradient-text {
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #0d9488 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+            box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* Subtle Fade In Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
     </style>
 </head>
-<body class="text-white min-h-screen">
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-cyan-500 selection:text-white">
 
-    <div id="login-view" class="min-h-screen flex items-center justify-center p-4">
-        <div class="w-full max-w-md glass rounded-3xl p-8 shadow-2xl">
+    <div id="login-view" class="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-slate-50 via-sky-50/50 to-blue-50/30">
+        <div class="w-full max-w-lg pro-card rounded-3xl p-10 animate-fade-in">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-2xl mx-auto mb-4 flex items-center justify-center text-3xl shadow-cyan-500/20 shadow-lg">
-                    <i class="fa-solid fa-chart-line"></i>
+                <div class="w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+                    <img src="./logo.png" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=AQ+Digital&background=0284c7&color=fff&size=128';" alt="AQ Digital Logo" class="w-full h-full object-contain drop-shadow-md">
                 </div>
-                <h1 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">AQ DIGITAL</h1>
-                <p class="text-slate-400 text-sm mt-1">Admin & Client Command Center</p>
+                <h1 class="text-3xl font-extrabold tracking-tight animated-gradient-text">AQ DIGITAL</h1>
+                <p class="text-slate-500 text-sm mt-1 font-medium">Enterprise Web Development & Digital Solutions</p>
             </div>
-            <button id="google-btn" class="w-full flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 text-white font-semibold py-3.5 rounded-xl border border-white/10 transition mb-6">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
-                <span>Continue with Google</span>
-            </button>
-            <form id="email-form" class="space-y-3">
-                <input type="email" id="email-input" placeholder="Email Address" class="w-full input-dark rounded-xl px-4 py-3.5 text-sm outline-none focus:border-cyan-500 transition" required>
-                <input type="password" id="password-input" placeholder="Password" class="w-full input-dark rounded-xl px-4 py-3.5 text-sm outline-none focus:border-cyan-500 transition" required>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-3.5 rounded-xl font-bold transition">Sign In / Register</button>
-            </form>
+
+            <div class="space-y-4">
+                <button id="google-btn" class="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-50 text-slate-700 font-semibold py-4 rounded-2xl border border-slate-200 transition shadow-sm hover:shadow">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                    <span>Continue with Google</span>
+                </button>
+
+                <div class="relative flex items-center py-2">
+                    <div class="flex-grow border-t border-slate-200"></div>
+                    <span class="mx-4 text-xs text-slate-400 font-bold uppercase tracking-widest">Or Sign In With Email</span>
+                    <div class="flex-grow border-t border-slate-200"></div>
+                </div>
+
+                <form id="email-form" class="space-y-3">
+                    <input type="email" id="email-input" placeholder="Email Address" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm outline-none focus:border-sky-500 focus:bg-white transition" required>
+                    <input type="password" id="password-input" placeholder="Password" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm outline-none focus:border-sky-500 focus:bg-white transition" required>
+                    <button type="submit" class="w-full btn-gradient text-white py-4 rounded-2xl font-bold text-sm shadow-md transition">Sign In / Create Account</button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <div id="portal-view" class="hidden">
-        <header class="glass sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-white/5">
-            <div class="flex items-center gap-6">
-                <div class="font-bold text-lg">AQ <span class="text-cyan-400">DIGITAL</span></div>
-                <nav id="admin-nav" class="hidden flex gap-4">
-                    <button onclick="showSection('client')" class="admin-tab active px-2 py-1 text-xs font-bold uppercase tracking-widest" id="btn-client">Client Area</button>
-                    <button onclick="showSection('admin')" class="admin-tab px-2 py-1 text-xs font-bold uppercase tracking-widest" id="btn-admin">Admin Master</button>
+    <div id="portal-view" class="hidden min-h-screen flex flex-col">
+        <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 px-8 py-4 border-b border-slate-200/80 shadow-sm flex justify-between items-center">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center">
+                        <img src="./logo.png" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=AQ+Digital&background=0284c7&color=fff';" alt="AQ Digital Logo" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-xl tracking-tight text-slate-900">AQ <span class="text-sky-600">DIGITAL</span></span>
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Client Console</span>
+                    </div>
+                </div>
+
+                <nav id="admin-nav" class="hidden flex bg-slate-100 p-1 rounded-xl border border-slate-200/60">
+                    <button onclick="showSection('client')" id="btn-client" class="px-5 py-2 rounded-lg text-xs font-bold transition text-slate-700 bg-white shadow-sm">Client Portal</button>
+                    <button onclick="showSection('admin')" id="btn-admin" class="px-5 py-2 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-800">Admin Control Center</button>
                 </nav>
             </div>
+
             <div class="flex items-center gap-4">
-                <div class="text-right"><p id="user-name" class="text-xs font-bold"></p><button id="logout-btn" class="text-[10px] text-red-400 font-bold uppercase">Logout</button></div>
-                <img id="user-photo" src="" class="w-10 h-10 rounded-full border-2 border-cyan-500/30">
+                <div class="text-right">
+                    <p id="user-name" class="text-sm font-bold text-slate-800"></p>
+                    <button id="logout-btn" class="text-xs text-red-500 hover:text-red-600 font-semibold transition">Logout</button>
+                </div>
+                <img id="user-photo" src="" class="w-11 h-11 rounded-full border-2 border-sky-500/30 object-cover shadow-sm">
             </div>
         </header>
 
-        <main class="max-w-6xl mx-auto p-6">
-            <div id="client-section" class="space-y-10">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="glass rounded-3xl p-8">
-                        <h2 class="text-xl font-bold mb-6">Place New <span class="text-cyan-400">Order</span></h2>
-                        <form id="order-form" class="space-y-4">
-                            <select id="pkg-input" class="w-full input-dark rounded-xl px-4 py-4 text-sm outline-none focus:border-cyan-500 transition" required>
-                                <option value="" disabled selected>Select Package</option>
-                                <option value="Silver">Silver (1-Page)</option>
-                                <option value="Golden">Golden (3-Pages)</option>
-                                <option value="Diamond">Diamond (Full-Stack)</option>
-                            </select>
-                            <textarea id="desc-input" rows="4" placeholder="Briefly describe your project..." class="w-full input-dark rounded-xl p-4 text-sm outline-none focus:border-cyan-500 transition" required></textarea>
-                            <input type="text" id="phone-input" placeholder="WhatsApp Number" class="w-full input-dark rounded-xl px-4 py-4 text-sm outline-none focus:border-cyan-500 transition" required>
-                            <button type="submit" id="submit-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 py-4 rounded-xl font-extrabold text-slate-900 transition">Submit Order</button>
+        <main class="flex-grow max-w-7xl w-full mx-auto p-6 md:p-10">
+            <div id="client-section" class="space-y-10 animate-fade-in">
+                <div class="bg-gradient-to-r from-sky-600 to-blue-700 rounded-3xl p-8 md:p-10 text-white shadow-xl shadow-sky-600/10 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="space-y-2 text-center md:text-left">
+                        <span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-wider">Agency Services</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold">Build Your Next Digital Experience</h2>
+                        <p class="text-sky-100 text-sm max-w-xl">Select a package below or submit customized requirements to get started with AQ Digital's web development suite.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1 pro-card rounded-3xl p-8">
+                        <h3 class="text-xl font-extrabold text-slate-900 mb-2">Request Service</h3>
+                        <p class="text-slate-500 text-xs mb-6">Fill in details for quick project initiation.</p>
+
+                        <form id="order-form" class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Package Tier</label>
+                                <select id="pkg-input" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm outline-none focus:border-sky-500 transition font-medium" required>
+                                    <option value="" disabled selected>Choose a Web Package</option>
+                                    <option value="Silver Tier (1-Page)">Silver Tier (1-Page High Converting Landing)</option>
+                                    <option value="Golden Tier (3-Pages)">Golden Tier (3-Page Business Site)</option>
+                                    <option value="Diamond Tier (Full-Stack)">Diamond Tier (Custom Full-Stack Web App)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Project Requirements</label>
+                                <textarea id="desc-input" rows="4" placeholder="Detail your project goals, features needed, and reference websites..." class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm outline-none focus:border-sky-500 transition font-medium" required></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2">Contact Number / WhatsApp</label>
+                                <input type="text" id="phone-input" placeholder="+92 3XX XXXXXXX" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3.5 text-sm outline-none focus:border-sky-500 transition font-medium" required>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full btn-gradient text-white py-4 rounded-2xl font-bold text-sm transition">Submit Order to AQ Digital</button>
                         </form>
                     </div>
-                    <div>
-                        <h2 class="text-xl font-bold mb-6">My <span class="text-cyan-400">Orders</span></h2>
-                        <div id="client-orders" class="space-y-4"></div>
+
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-extrabold text-slate-900">Your Project History</h3>
+                            <span class="text-xs text-slate-400 font-semibold">Real-time Status Updates</span>
+                        </div>
+
+                        <div id="client-orders" class="space-y-4">
+                            <div class="pro-card rounded-2xl p-8 text-center text-slate-400 font-medium text-sm">
+                                Fetching your active projects...
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div id="admin-section" class="hidden space-y-6">
-                <h2 class="text-2xl font-extrabold">Master <span class="text-cyan-400">Dashboard</span></h2>
-                <div class="overflow-x-auto glass rounded-3xl">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="text-[10px] uppercase tracking-widest text-slate-500 bg-white/5">
-                                <th class="p-4">Client</th>
-                                <th class="p-4">Package</th>
-                                <th class="p-4">Requirements</th>
-                                <th class="p-4">Action</th>
-                                <th class="p-4 text-right">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-orders-table"></tbody>
-                    </table>
+            <div id="admin-section" class="hidden space-y-8 animate-fade-in">
+                <div class="flex flex-col md:flex-row justify-between md:items-center gap-4">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-slate-900">Admin Control Center</h2>
+                        <p class="text-slate-500 text-sm">Manage global client submissions, update status, and review details.</p>
+                    </div>
+                </div>
+
+                <div class="pro-card rounded-3xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-100/70 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                                    <th class="p-5">Client Name</th>
+                                    <th class="p-5">Package Tier</th>
+                                    <th class="p-5">Project Scope</th>
+                                    <th class="p-5">Status Controller</th>
+                                    <th class="p-5 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-orders-table" class="divide-y divide-slate-100">
+                                </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
+
+        <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-400 font-medium">
+            © 2026 AQ DIGITAL. All Rights Reserved. Managed by Founder Ameer Qureshi.
+        </footer>
     </div>
 
     <script type="module">
@@ -102,7 +212,6 @@
         import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, where, onSnapshot, orderBy, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyA0rN_SB5L4TNnAKX0ful931iNt9fcRo-4",
             authDomain: "aq-digital-62c4e.firebaseapp.com",
@@ -112,6 +221,7 @@
             appId: "1:158917825602:web:f7208a77b4774af89109db"
         };
 
+        // YOUR ADMIN UNIQUE ID
         const ADMIN_UID = "RTGpwBc7nHWY0B2ZHkRpLiBmCn53";
 
         const app = initializeApp(firebaseConfig);
@@ -121,15 +231,14 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                console.log("Your UID:", user.uid); // Console mein UID check karein
                 document.getElementById('login-view').classList.add('hidden');
                 document.getElementById('portal-view').classList.remove('hidden');
                 document.getElementById('user-name').textContent = user.displayName || user.email.split('@')[0];
-                document.getElementById('user-photo').src = user.photoURL || `https://ui-avatars.com/api/?name=${user.email}`;
-                
+                document.getElementById('user-photo').src = user.photoURL || `https://ui-avatars.com/api/?name=${user.email}&background=0284c7&color=fff`;
+
                 if (user.uid === ADMIN_UID) {
                     document.getElementById('admin-nav').classList.remove('hidden');
-                    fetchAllOrders();
+                    fetchAllOrdersAdmin();
                 }
                 fetchClientOrders(user.uid);
             } else {
@@ -138,17 +247,30 @@
             }
         });
 
-        // Navigation Logic
+        // Tab Switching Logic
         window.showSection = (section) => {
             document.getElementById('client-section').classList.toggle('hidden', section === 'admin');
             document.getElementById('admin-section').classList.toggle('hidden', section === 'client');
-            document.getElementById('btn-client').classList.toggle('active', section === 'client');
-            document.getElementById('btn-admin').classList.toggle('active', section === 'admin');
+            
+            const btnClient = document.getElementById('btn-client');
+            const btnAdmin = document.getElementById('btn-admin');
+
+            if (section === 'client') {
+                btnClient.className = "px-5 py-2 rounded-lg text-xs font-bold transition text-slate-700 bg-white shadow-sm";
+                btnAdmin.className = "px-5 py-2 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-800";
+            } else {
+                btnAdmin.className = "px-5 py-2 rounded-lg text-xs font-bold transition text-slate-700 bg-white shadow-sm";
+                btnClient.className = "px-5 py-2 rounded-lg text-xs font-bold transition text-slate-500 hover:text-slate-800";
+            }
         };
 
-        // Order Submitting & Fetching
+        // Order Submitting Function
         document.getElementById('order-form').onsubmit = async (e) => {
             e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.textContent = "Processing Order...";
+
             try {
                 await addDoc(collection(db, "orders"), {
                     userId: auth.currentUser.uid,
@@ -159,45 +281,81 @@
                     status: "Pending",
                     createdAt: new Date()
                 });
-                alert("Order Placed!");
+                alert("Success! Your order has been registered with AQ Digital.");
                 document.getElementById('order-form').reset();
-            } catch(e) { alert(e.message); }
+            } catch(e) {
+                alert("Submission Failed: " + e.message);
+            }
+            btn.disabled = false;
+            btn.textContent = "Submit Order to AQ Digital";
         };
 
+        // Fetch Client's Own Orders
         function fetchClientOrders(uid) {
             const q = query(collection(db, "orders"), where("userId", "==", uid), orderBy("createdAt", "desc"));
             onSnapshot(q, (sn) => {
                 const list = document.getElementById('client-orders');
                 list.innerHTML = "";
+                
+                if (sn.empty) {
+                    list.innerHTML = `<div class="pro-card rounded-2xl p-8 text-center text-slate-400 font-medium text-sm">No orders found. Place a new order using the form.</div>`;
+                    return;
+                }
+
                 sn.forEach(d => {
                     const data = d.data();
-                    list.innerHTML += `<div class="glass p-4 rounded-2xl flex justify-between border-l-4 border-cyan-500">
-                        <div><p class="text-cyan-400 font-bold text-sm">${data.package}</p><p class="text-[10px] text-slate-500">${new Date(data.createdAt.seconds*1000).toLocaleDateString()}</p></div>
-                        <span class="px-3 py-1 rounded-full text-[9px] font-bold uppercase ${data.status==='Pending'?'text-orange-500 bg-orange-500/10':'text-green-500 bg-green-500/10'}">${data.status}</span>
-                    </div>`;
+                    const statusClass = data.status === 'Pending' ? 'bg-amber-50 text-amber-600 border-amber-200' : 
+                                       data.status === 'In Progress' ? 'bg-sky-50 text-sky-600 border-sky-200' : 
+                                       'bg-emerald-50 text-emerald-600 border-emerald-200';
+
+                    list.innerHTML += `
+                        <div class="pro-card rounded-2xl p-6 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                            <div>
+                                <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">${data.package}</span>
+                                <p class="text-sm text-slate-700 font-medium mt-1">${data.description}</p>
+                                <p class="text-[11px] text-slate-400 mt-2 font-medium"><i class="fa-regular fa-clock mr-1"></i> ${new Date(data.createdAt.seconds * 1000).toLocaleString()}</p>
+                            </div>
+                            <div>
+                                <span class="px-4 py-1.5 rounded-full text-xs font-bold border ${statusClass}">
+                                    ${data.status}
+                                </span>
+                            </div>
+                        </div>
+                    `;
                 });
             });
         }
 
-        function fetchAllOrders() {
+        // Fetch Admin View Orders
+        function fetchAllOrdersAdmin() {
             onSnapshot(query(collection(db, "orders"), orderBy("createdAt", "desc")), (sn) => {
                 const table = document.getElementById('admin-orders-table');
                 table.innerHTML = "";
+
                 sn.forEach(d => {
                     const data = d.data();
-                    table.innerHTML += `<tr class="border-t border-white/5 text-sm">
-                        <td class="p-4"><p class="font-bold">${data.clientName}</p><p class="text-[10px] text-slate-500">${data.contact}</p></td>
-                        <td class="p-4 text-cyan-400 font-bold">${data.package}</td>
-                        <td class="p-4 text-xs text-slate-400 max-w-[200px] truncate">${data.description}</td>
-                        <td class="p-4">
-                            <select onchange="updateStatus('${d.id}', this.value)" class="bg-slate-800 border-none rounded p-1 text-[10px] font-bold">
-                                <option ${data.status==='Pending'?'selected':''}>Pending</option>
-                                <option ${data.status==='In Progress'?'selected':''}>In Progress</option>
-                                <option ${data.status==='Completed'?'selected':''}>Completed</option>
-                            </select>
-                        </td>
-                        <td class="p-4 text-right"><span class="px-2 py-1 rounded bg-white/5 text-[9px] font-bold">${data.status}</span></td>
-                    </tr>`;
+                    table.innerHTML += `
+                        <tr class="hover:bg-slate-50/80 transition text-sm">
+                            <td class="p-5 font-bold text-slate-800">
+                                ${data.clientName}
+                                <span class="block text-xs font-normal text-slate-400">${data.contact}</span>
+                            </td>
+                            <td class="p-5 font-semibold text-sky-600">${data.package}</td>
+                            <td class="p-5 text-slate-600 text-xs max-w-xs truncate">${data.description}</td>
+                            <td class="p-5">
+                                <select onchange="updateStatus('${d.id}', this.value)" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-semibold outline-none focus:border-sky-500 shadow-sm">
+                                    <option value="Pending" ${data.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="In Progress" ${data.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                                    <option value="Completed" ${data.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                </select>
+                            </td>
+                            <td class="p-5 text-right">
+                                <a href="https://wa.me/${data.contact.replace(/[^0-9]/g, '')}" target="_blank" class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 hover:bg-emerald-100 transition">
+                                    <i class="fa-brands fa-whatsapp"></i> Chat
+                                </a>
+                            </td>
+                        </tr>
+                    `;
                 });
             });
         }
@@ -206,15 +364,22 @@
             await updateDoc(doc(db, "orders", id), { status: newStatus });
         };
 
-        // Basic Auth Buttons
+        // Authentication Event Handlers
         document.getElementById('google-btn').onclick = () => signInWithPopup(auth, provider);
         document.getElementById('logout-btn').onclick = () => signOut(auth);
+        
         document.getElementById('email-form').onsubmit = async (e) => {
             e.preventDefault();
             const em = document.getElementById('email-input').value;
             const ps = document.getElementById('password-input').value;
-            try { await signInWithEmailAndPassword(auth, em, ps); } catch(e) {
-                try { await createUserWithEmailAndPassword(auth, em, ps); } catch(err) { alert(err.message); }
+            try { 
+                await signInWithEmailAndPassword(auth, em, ps); 
+            } catch(e) {
+                try { 
+                    await createUserWithEmailAndPassword(auth, em, ps); 
+                } catch(err) { 
+                    alert(err.message); 
+                }
             }
         };
     </script>
