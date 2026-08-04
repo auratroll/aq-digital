@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AQ Digital - Portal v2.5</title>
+    <title>AQ Digital - Master Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -11,6 +11,8 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; }
         .glass { background: rgba(19, 25, 39, 0.7); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.06); }
         .input-dark { background: rgba(13, 18, 32, 0.9); border: 1px solid rgba(255,255,255,0.1); color: white; }
+        .admin-tab { border-bottom: 2px solid transparent; transition: 0.3s; }
+        .admin-tab.active { border-color: #0ea5e9; color: #0ea5e9; }
     </style>
 </head>
 <body class="text-white min-h-screen">
@@ -22,65 +24,74 @@
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
                 <h1 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">AQ DIGITAL</h1>
-                <p class="text-slate-400 text-sm mt-1">International Business Portal</p>
+                <p class="text-slate-400 text-sm mt-1">Admin & Client Command Center</p>
             </div>
-
             <button id="google-btn" class="w-full flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 text-white font-semibold py-3.5 rounded-xl border border-white/10 transition mb-6">
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5">
                 <span>Continue with Google</span>
             </button>
-
-            <div class="relative flex items-center mb-6">
-                <div class="flex-grow border-t border-white/5"></div>
-                <span class="mx-4 text-[10px] text-slate-500 font-bold uppercase tracking-widest">Or Email Access</span>
-                <div class="flex-grow border-t border-white/5"></div>
-            </div>
-
             <form id="email-form" class="space-y-3">
                 <input type="email" id="email-input" placeholder="Email Address" class="w-full input-dark rounded-xl px-4 py-3.5 text-sm outline-none focus:border-cyan-500 transition" required>
                 <input type="password" id="password-input" placeholder="Password" class="w-full input-dark rounded-xl px-4 py-3.5 text-sm outline-none focus:border-cyan-500 transition" required>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-3.5 rounded-xl font-bold shadow-lg shadow-blue-500/20 transition">Login / Register</button>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-3.5 rounded-xl font-bold transition">Sign In / Register</button>
             </form>
         </div>
     </div>
 
-    <div id="dashboard-view" class="hidden">
+    <div id="portal-view" class="hidden">
         <header class="glass sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-white/5">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-cyan-500 rounded flex items-center justify-center text-white text-sm"><i class="fa-solid fa-code"></i></div>
-                <span class="font-bold">AQ <span class="text-cyan-400">DIGITAL</span></span>
+            <div class="flex items-center gap-6">
+                <div class="font-bold text-lg">AQ <span class="text-cyan-400">DIGITAL</span></div>
+                <nav id="admin-nav" class="hidden flex gap-4">
+                    <button onclick="showSection('client')" class="admin-tab active px-2 py-1 text-xs font-bold uppercase tracking-widest" id="btn-client">Client Area</button>
+                    <button onclick="showSection('admin')" class="admin-tab px-2 py-1 text-xs font-bold uppercase tracking-widest" id="btn-admin">Admin Master</button>
+                </nav>
             </div>
             <div class="flex items-center gap-4">
-                <div class="text-right">
-                    <p id="user-name" class="text-xs font-bold"></p>
-                    <button id="logout-btn" class="text-[10px] text-red-400 font-bold uppercase tracking-tighter hover:underline">Logout</button>
-                </div>
+                <div class="text-right"><p id="user-name" class="text-xs font-bold"></p><button id="logout-btn" class="text-[10px] text-red-400 font-bold uppercase">Logout</button></div>
                 <img id="user-photo" src="" class="w-10 h-10 rounded-full border-2 border-cyan-500/30">
             </div>
         </header>
 
-        <main class="max-w-5xl mx-auto p-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="glass rounded-3xl p-8">
-                    <h2 class="text-xl font-bold mb-6">Create New <span class="text-cyan-400">Order</span></h2>
-                    <form id="order-form" class="space-y-4">
-                        <select id="pkg-input" class="w-full input-dark rounded-xl px-4 py-4 text-sm outline-none focus:border-cyan-500 transition" required>
-                            <option value="" disabled selected>Select Package</option>
-                            <option value="Silver">Silver (1-Page Portfolio)</option>
-                            <option value="Golden">Golden (3-Pages Business)</option>
-                            <option value="Diamond">Diamond (Full-Stack Web)</option>
-                        </select>
-                        <textarea id="desc-input" rows="4" placeholder="Tell us about your project requirements..." class="w-full input-dark rounded-xl p-4 text-sm outline-none focus:border-cyan-500 transition" required></textarea>
-                        <input type="text" id="phone-input" placeholder="WhatsApp Number" class="w-full input-dark rounded-xl px-4 py-4 text-sm outline-none focus:border-cyan-500 transition" required>
-                        <button type="submit" id="submit-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 py-4 rounded-xl font-extrabold text-slate-900 transition shadow-lg shadow-cyan-500/20">Submit Order</button>
-                    </form>
-                </div>
-
-                <div>
-                    <h2 class="text-xl font-bold mb-6">Order <span class="text-cyan-400">History</span></h2>
-                    <div id="orders-list" class="space-y-4">
-                        <div class="p-6 text-center text-slate-500 italic text-sm glass rounded-2xl">No orders found yet.</div>
+        <main class="max-w-6xl mx-auto p-6">
+            <div id="client-section" class="space-y-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="glass rounded-3xl p-8">
+                        <h2 class="text-xl font-bold mb-6">Place New <span class="text-cyan-400">Order</span></h2>
+                        <form id="order-form" class="space-y-4">
+                            <select id="pkg-input" class="w-full input-dark rounded-xl px-4 py-4 text-sm outline-none focus:border-cyan-500 transition" required>
+                                <option value="" disabled selected>Select Package</option>
+                                <option value="Silver">Silver (1-Page)</option>
+                                <option value="Golden">Golden (3-Pages)</option>
+                                <option value="Diamond">Diamond (Full-Stack)</option>
+                            </select>
+                            <textarea id="desc-input" rows="4" placeholder="Briefly describe your project..." class="w-full input-dark rounded-xl p-4 text-sm outline-none focus:border-cyan-500 transition" required></textarea>
+                            <input type="text" id="phone-input" placeholder="WhatsApp Number" class="w-full input-dark rounded-xl px-4 py-4 text-sm outline-none focus:border-cyan-500 transition" required>
+                            <button type="submit" id="submit-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 py-4 rounded-xl font-extrabold text-slate-900 transition">Submit Order</button>
+                        </form>
                     </div>
+                    <div>
+                        <h2 class="text-xl font-bold mb-6">My <span class="text-cyan-400">Orders</span></h2>
+                        <div id="client-orders" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="admin-section" class="hidden space-y-6">
+                <h2 class="text-2xl font-extrabold">Master <span class="text-cyan-400">Dashboard</span></h2>
+                <div class="overflow-x-auto glass rounded-3xl">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-[10px] uppercase tracking-widest text-slate-500 bg-white/5">
+                                <th class="p-4">Client</th>
+                                <th class="p-4">Package</th>
+                                <th class="p-4">Requirements</th>
+                                <th class="p-4">Action</th>
+                                <th class="p-4 text-right">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-table"></tbody>
+                    </table>
                 </div>
             </div>
         </main>
@@ -89,8 +100,9 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, where, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, where, onSnapshot, orderBy, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyA0rN_SB5L4TNnAKX0ful931iNt9fcRo-4",
             authDomain: "aq-digital-62c4e.firebaseapp.com",
@@ -100,6 +112,8 @@
             appId: "1:158917825602:web:f7208a77b4774af89109db"
         };
 
+        const ADMIN_UID = "YOUR_UID_HERE"; // Login karke console se apni UID yahan paste karna
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -107,35 +121,34 @@
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                console.log("Your UID:", user.uid); // Console mein UID check karein
                 document.getElementById('login-view').classList.add('hidden');
-                document.getElementById('dashboard-view').classList.remove('hidden');
+                document.getElementById('portal-view').classList.remove('hidden');
                 document.getElementById('user-name').textContent = user.displayName || user.email.split('@')[0];
-                document.getElementById('user-photo').src = user.photoURL || `https://ui-avatars.com/api/?name=${user.email}&background=0ea5e9&color=fff`;
-                fetchOrders(user.uid);
+                document.getElementById('user-photo').src = user.photoURL || `https://ui-avatars.com/api/?name=${user.email}`;
+                
+                if (user.uid === ADMIN_UID) {
+                    document.getElementById('admin-nav').classList.remove('hidden');
+                    fetchAllOrders();
+                }
+                fetchClientOrders(user.uid);
             } else {
                 document.getElementById('login-view').classList.remove('hidden');
-                document.getElementById('dashboard-view').classList.add('hidden');
+                document.getElementById('portal-view').classList.add('hidden');
             }
         });
 
-        document.getElementById('google-btn').onclick = () => signInWithPopup(auth, provider);
-        document.getElementById('logout-btn').onclick = () => signOut(auth);
-
-        document.getElementById('email-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email-input').value;
-            const pass = document.getElementById('password-input').value;
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-            } catch (err) {
-                try { await createUserWithEmailAndPassword(auth, email, pass); } catch(e) { alert(e.message); }
-            }
+        // Navigation Logic
+        window.showSection = (section) => {
+            document.getElementById('client-section').classList.toggle('hidden', section === 'admin');
+            document.getElementById('admin-section').classList.toggle('hidden', section === 'client');
+            document.getElementById('btn-client').classList.toggle('active', section === 'client');
+            document.getElementById('btn-admin').classList.toggle('active', section === 'admin');
         };
 
+        // Order Submitting & Fetching
         document.getElementById('order-form').onsubmit = async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.disabled = true; btn.textContent = "Processing...";
             try {
                 await addDoc(collection(db, "orders"), {
                     userId: auth.currentUser.uid,
@@ -146,33 +159,64 @@
                     status: "Pending",
                     createdAt: new Date()
                 });
-                alert("Order Sent! AQ Digital will review it.");
+                alert("Order Placed!");
                 document.getElementById('order-form').reset();
-            } catch (err) { alert(err.message); }
-            btn.disabled = false; btn.textContent = "Submit Order";
+            } catch(e) { alert(e.message); }
         };
 
-        function fetchOrders(uid) {
+        function fetchClientOrders(uid) {
             const q = query(collection(db, "orders"), where("userId", "==", uid), orderBy("createdAt", "desc"));
-            onSnapshot(q, (snapshot) => {
-                const list = document.getElementById('orders-list');
+            onSnapshot(q, (sn) => {
+                const list = document.getElementById('client-orders');
                 list.innerHTML = "";
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    list.innerHTML += `
-                        <div class="glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-cyan-500">
-                            <div>
-                                <p class="text-cyan-400 font-bold text-sm">${data.package} Package</p>
-                                <p class="text-[10px] text-slate-500 mt-1">${new Date(data.createdAt.seconds * 1000).toLocaleString()}</p>
-                            </div>
-                            <span class="px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest ${data.status === 'Pending' ? 'bg-orange-500/10 text-orange-500' : 'bg-green-500/10 text-green-500'}">
-                                ${data.status}
-                            </span>
-                        </div>
-                    `;
+                sn.forEach(d => {
+                    const data = d.data();
+                    list.innerHTML += `<div class="glass p-4 rounded-2xl flex justify-between border-l-4 border-cyan-500">
+                        <div><p class="text-cyan-400 font-bold text-sm">${data.package}</p><p class="text-[10px] text-slate-500">${new Date(data.createdAt.seconds*1000).toLocaleDateString()}</p></div>
+                        <span class="px-3 py-1 rounded-full text-[9px] font-bold uppercase ${data.status==='Pending'?'text-orange-500 bg-orange-500/10':'text-green-500 bg-green-500/10'}">${data.status}</span>
+                    </div>`;
                 });
             });
         }
+
+        function fetchAllOrders() {
+            onSnapshot(query(collection(db, "orders"), orderBy("createdAt", "desc")), (sn) => {
+                const table = document.getElementById('admin-orders-table');
+                table.innerHTML = "";
+                sn.forEach(d => {
+                    const data = d.data();
+                    table.innerHTML += `<tr class="border-t border-white/5 text-sm">
+                        <td class="p-4"><p class="font-bold">${data.clientName}</p><p class="text-[10px] text-slate-500">${data.contact}</p></td>
+                        <td class="p-4 text-cyan-400 font-bold">${data.package}</td>
+                        <td class="p-4 text-xs text-slate-400 max-w-[200px] truncate">${data.description}</td>
+                        <td class="p-4">
+                            <select onchange="updateStatus('${d.id}', this.value)" class="bg-slate-800 border-none rounded p-1 text-[10px] font-bold">
+                                <option ${data.status==='Pending'?'selected':''}>Pending</option>
+                                <option ${data.status==='In Progress'?'selected':''}>In Progress</option>
+                                <option ${data.status==='Completed'?'selected':''}>Completed</option>
+                            </select>
+                        </td>
+                        <td class="p-4 text-right"><span class="px-2 py-1 rounded bg-white/5 text-[9px] font-bold">${data.status}</span></td>
+                    </tr>`;
+                });
+            });
+        }
+
+        window.updateStatus = async (id, newStatus) => {
+            await updateDoc(doc(db, "orders", id), { status: newStatus });
+        };
+
+        // Basic Auth Buttons
+        document.getElementById('google-btn').onclick = () => signInWithPopup(auth, provider);
+        document.getElementById('logout-btn').onclick = () => signOut(auth);
+        document.getElementById('email-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const em = document.getElementById('email-input').value;
+            const ps = document.getElementById('password-input').value;
+            try { await signInWithEmailAndPassword(auth, em, ps); } catch(e) {
+                try { await createUserWithEmailAndPassword(auth, em, ps); } catch(err) { alert(err.message); }
+            }
+        };
     </script>
 </body>
 </html>
